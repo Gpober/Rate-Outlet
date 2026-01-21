@@ -74,10 +74,19 @@ body {
 .logo {
     text-decoration: none;
     transition: transform var(--transition-fast);
+    display: flex;
+    align-items: center;
 }
 
 .logo:hover {
     transform: scale(1.02);
+}
+
+.logo-image {
+    height: 50px;
+    width: auto;
+    object-fit: contain;
+    transition: transform var(--transition-fast);
 }
 
 .logo-text {
@@ -474,6 +483,10 @@ section {
         font-size: 0.85rem;
     }
 
+    .logo-image {
+        height: 40px;
+    }
+
     .logo-text {
         font-size: 1.4rem;
     }
@@ -503,6 +516,10 @@ section {
 }
 
 @media (max-width: 480px) {
+    .logo-image {
+        height: 35px;
+    }
+
     .logo-text {
         font-size: 1.2rem;
     }
