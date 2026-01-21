@@ -35,44 +35,49 @@ Rate-Outlet/
 
 ## 📊 Live Mortgage Rates Integration
 
-The website features real-time mortgage rates powered by **h.api**.
+The website features **100% FREE** real-time mortgage rates powered by **FRED** (Federal Reserve Economic Data).
 
-### Setting Up Live Rates
+### About FRED API
 
-1. **Sign up for h.api**
-   - Visit https://hapi.so
-   - Create a free account
-   - Get your API key
+- **Completely FREE** - No cost, ever!
+- **Official Data** - Direct from Freddie Mac's Primary Mortgage Market Survey
+- **Updated Weekly** - Every Thursday at noon ET
+- **Trusted Source** - Federal Reserve Bank of St. Louis
+
+### Setting Up Live Rates (Optional)
+
+The website works immediately with default FRED access. For higher API limits:
+
+1. **Get a Free FRED API Key** (Optional)
+   - Visit https://fred.stlouisfed.org/docs/api/api_key.html
+   - Request a free API key (no credit card required)
+   - Copy your API key
 
 2. **Configure the API Key**
    - Open `script.js`
-   - Find line 7: `const HAPI_API_KEY = 'YOUR_API_KEY_HERE';`
-   - Replace `YOUR_API_KEY_HERE` with your actual API key
+   - Find line: `api_key=YOUR_FRED_API_KEY`
+   - Replace `YOUR_FRED_API_KEY` with your actual key
 
 3. **How It Works**
-   - Displays real-time rates for all 50 US states
-   - Users can select their state from the dropdown
+   - Fetches official Freddie Mac national average rates
+   - Updates automatically every week
    - Shows 6 popular loan types:
-     - 30-Year Fixed (featured)
-     - 15-Year Fixed
-     - FHA 30-Year Fixed
-     - VA 30-Year Fixed
-     - Jumbo 30-Year Fixed
-     - 5/1 ARM
-   - Auto-updates when state is changed
+     - 30-Year Fixed (Freddie Mac data) ⭐
+     - 15-Year Fixed (Freddie Mac data)
+     - FHA 30-Year Fixed (estimated)
+     - VA 30-Year Fixed (estimated)
+     - Jumbo 30-Year Fixed (estimated)
+     - 5/1 ARM (Freddie Mac data)
 
-4. **Demo Mode**
-   - If no API key is configured, demo rates are shown
-   - Replace with your API key to show live rates
+### Data Sources
 
-### Supported Rate Types
+**Direct from FRED:**
+- 30-Year Fixed: `MORTGAGE30US`
+- 15-Year Fixed: `MORTGAGE15US`
+- 5/1 ARM: `MORTGAGE5US`
 
-The integration fetches and displays:
-- Conforming fixed rates (30-year, 20-year, 15-year, 10-year)
-- FHA rates
-- VA rates
-- Jumbo rates
-- ARM rates (5-year, 7-year)
+**Estimated Rates:**
+- FHA, VA, and Jumbo rates are calculated using typical market spreads from the 30-year fixed rate
 
 ## 🛠️ Customization
 
