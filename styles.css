@@ -263,6 +263,177 @@ section {
 }
 
 /* ===================================
+   Current Rates Section
+   =================================== */
+.rates-section {
+    background: var(--white);
+    position: relative;
+}
+
+.state-selector-wrapper {
+    text-align: center;
+    margin-bottom: 2.5rem;
+}
+
+.state-selector-wrapper label {
+    display: block;
+    font-size: 1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.state-select {
+    padding: 0.75rem 2rem 0.75rem 1rem;
+    font-size: 1rem;
+    border: 2px solid var(--text-muted);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--text-dark);
+    cursor: pointer;
+    transition: all var(--transition-fast);
+    font-weight: 500;
+    min-width: 200px;
+}
+
+.state-select:hover {
+    border-color: var(--accent-color);
+}
+
+.state-select:focus {
+    outline: none;
+    border-color: var(--accent-color);
+    box-shadow: 0 0 0 3px rgba(227, 30, 36, 0.1);
+}
+
+.rates-loading {
+    text-align: center;
+    padding: 3rem 1rem;
+}
+
+.loading-spinner {
+    width: 50px;
+    height: 50px;
+    border: 4px solid var(--light-bg);
+    border-top-color: var(--accent-color);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin: 0 auto 1rem;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+.rates-loading p {
+    color: var(--text-light);
+    font-size: 1.1rem;
+}
+
+.rates-error {
+    text-align: center;
+    padding: 3rem 1rem;
+    background: rgba(227, 30, 36, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(227, 30, 36, 0.2);
+}
+
+.rates-error p {
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.rates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.rate-card {
+    background: var(--white);
+    padding: 2rem 1.5rem;
+    border-radius: 12px;
+    border: 2px solid var(--light-bg);
+    transition: all var(--transition-normal);
+    text-align: center;
+}
+
+.rate-card:hover {
+    border-color: var(--accent-color);
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-md);
+}
+
+.rate-card.featured {
+    border-color: var(--accent-color);
+    background: linear-gradient(135deg, rgba(227, 30, 36, 0.02), rgba(227, 30, 36, 0.05));
+    position: relative;
+}
+
+.rate-card.featured::before {
+    content: 'POPULAR';
+    position: absolute;
+    top: -12px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--accent-color);
+    color: var(--white);
+    padding: 0.25rem 1rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+.rate-type {
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--text-dark);
+    margin-bottom: 0.75rem;
+}
+
+.rate-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--accent-color);
+    margin-bottom: 0.5rem;
+    line-height: 1;
+}
+
+.rate-value .percent {
+    font-size: 1.5rem;
+}
+
+.rate-apr {
+    font-size: 0.9rem;
+    color: var(--text-light);
+    margin-bottom: 1rem;
+}
+
+.rate-points {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+}
+
+.rates-disclaimer {
+    text-align: center;
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    max-width: 800px;
+    margin: 0 auto;
+    font-style: italic;
+}
+
+.rates-updated {
+    text-align: center;
+    margin-top: 2rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+}
+
+/* ===================================
    Services Section
    =================================== */
 .services-section {
@@ -509,9 +680,14 @@ section {
 
     .services-grid,
     .features-grid,
-    .contact-grid {
+    .contact-grid,
+    .rates-grid {
         grid-template-columns: 1fr;
         gap: 1.5rem;
+    }
+
+    .state-select {
+        min-width: 100%;
     }
 }
 

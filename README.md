@@ -33,6 +33,47 @@ Rate-Outlet/
 4. **Contact** - Phone, email, and office hours
 5. **Footer** - Copyright and NMLS information
 
+## 📊 Live Mortgage Rates Integration
+
+The website features real-time mortgage rates powered by **h.api**.
+
+### Setting Up Live Rates
+
+1. **Sign up for h.api**
+   - Visit https://hapi.so
+   - Create a free account
+   - Get your API key
+
+2. **Configure the API Key**
+   - Open `script.js`
+   - Find line 7: `const HAPI_API_KEY = 'YOUR_API_KEY_HERE';`
+   - Replace `YOUR_API_KEY_HERE` with your actual API key
+
+3. **How It Works**
+   - Displays real-time rates for all 50 US states
+   - Users can select their state from the dropdown
+   - Shows 6 popular loan types:
+     - 30-Year Fixed (featured)
+     - 15-Year Fixed
+     - FHA 30-Year Fixed
+     - VA 30-Year Fixed
+     - Jumbo 30-Year Fixed
+     - 5/1 ARM
+   - Auto-updates when state is changed
+
+4. **Demo Mode**
+   - If no API key is configured, demo rates are shown
+   - Replace with your API key to show live rates
+
+### Supported Rate Types
+
+The integration fetches and displays:
+- Conforming fixed rates (30-year, 20-year, 15-year, 10-year)
+- FHA rates
+- VA rates
+- Jumbo rates
+- ARM rates (5-year, 7-year)
+
 ## 🛠️ Customization
 
 ### Update Contact Information
