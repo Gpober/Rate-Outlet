@@ -46,24 +46,36 @@ async function fetchMortgageRates() {
     } catch (error) {
         console.error('Error fetching rates:', error);
 
-        // Hide loading, show error
+        // Show demo rates as fallback
+        displayDemoRates();
+
+        // Hide loading, show grid
         loadingEl.style.display = 'none';
-        errorEl.style.display = 'block';
+        gridEl.style.display = 'grid';
     }
 }
 
 async function fetchFREDSeries(seriesId) {
-    // FRED API endpoint (no API key needed for basic access)
-    const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=YOUR_FRED_API_KEY&file_type=json&sort_order=desc&limit=1`;
+    // FRED API endpoint
+    // To get a FREE API key: https://fred.stlouisfed.org/docs/api/api_key.html
+    const apiKey = 'YOUR_FRED_API_KEY'; // Replace with your free FRED API key
+    const url = `https://api.stlouisfed.org/fred/series/observations?series_id=${seriesId}&api_key=${apiKey}&file_type=json&sort_order=desc&limit=1`;
 
     try {
         const response = await fetch(url);
 
         if (!response.ok) {
-            throw new Error(`Failed to fetch ${seriesId}`);
+            console.warn(`FRED API returned ${response.status} for ${seriesId}`);
+            throw new Error(`Failed to fetch ${seriesId}: ${response.status}`);
         }
 
         const data = await response.json();
+
+        // Check if we got an error from FRED
+        if (data.error_code) {
+            console.warn(`FRED API error for ${seriesId}:`, data.error_message);
+            throw new Error(data.error_message);
+        }
 
         if (data.observations && data.observations.length > 0) {
             return {
@@ -74,7 +86,7 @@ async function fetchFREDSeries(seriesId) {
 
         return null;
     } catch (error) {
-        console.error(`Error fetching ${seriesId}:`, error);
+        console.error(`Error fetching ${seriesId}:`, error.message);
         return null;
     }
 }
@@ -158,6 +170,51 @@ function displayRates(ratesData) {
     if (oldTimestamp) oldTimestamp.remove();
 
     gridEl.parentElement.appendChild(updatedEl);
+}
+
+function displayDemoRates() {
+    const gridEl = document.getElementById('rates-grid');
+
+    // Demo rates - typical current market rates
+    const demoRates = [
+        { label: '30-Year Fixed', rate: 6.850, featured: true },
+        { label: '15-Year Fixed', rate: 6.100, featured: false },
+        { label: 'FHA 30-Year Fixed', rate: 6.600, estimated: true, featured: false },
+        { label: 'VA 30-Year Fixed', rate: 6.500, estimated: true, featured: false },
+        { label: 'Jumbo 30-Year Fixed', rate: 7.100, estimated: true, featured: false },
+        { label: '5/1 ARM', rate: 6.350, featured: false }
+    ];
+
+    let html = '';
+
+    demoRates.forEach(rate => {
+        const featuredClass = rate.featured ? 'featured' : '';
+        const estimatedBadge = rate.estimated
+            ? '<span style="font-size: 0.7rem; color: var(--text-muted);">*Est.</span>'
+            : '';
+
+        html += `
+            <div class="rate-card ${featuredClass}">
+                <h3 class="rate-type">${rate.label} ${estimatedBadge}</h3>
+                <div class="rate-value">
+                    ${rate.rate.toFixed(3)}<span class="percent">%</span>
+                </div>
+            </div>
+        `;
+    });
+
+    gridEl.innerHTML = html;
+
+    // Add note about demo rates
+    const noteEl = document.createElement('p');
+    noteEl.className = 'rates-updated';
+    noteEl.innerHTML = 'Sample rates shown • <a href="#contact" style="color: var(--accent-color); text-decoration: underline;">Contact us</a> for current personalized rates';
+
+    // Remove old timestamp if exists
+    const oldTimestamp = gridEl.parentElement.querySelector('.rates-updated');
+    if (oldTimestamp) oldTimestamp.remove();
+
+    gridEl.parentElement.appendChild(noteEl);
 }
 
 // ===================================
